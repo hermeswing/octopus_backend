@@ -24,23 +24,27 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor // 인자없는 생성자를 자동으로 생성합니다.
 @AllArgsConstructor // 인자를 모두 갖춘 생성자를 자동으로 생성합니다.
-@Table(name = "user") // 'user' 테이블과 매핑됨을 명시
+@Table(name = "member") // 'user' 테이블과 매핑됨을 명시
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 @Proxy(lazy = false)
-public class User extends CommonDateEntity {
-	@Id // pk
+public class Member extends CommonDateEntity {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1246865649224168898L;
+
+    @Id // pk
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int msrl;
-	@Column(nullable = false, unique = true, length = 50)
+	private long seq;
 	
-	private String uid;
+	@Column(nullable = false, unique = true, length = 50)
+	private String id;
+	
+    @Column(nullable = false, length = 100)
+    private String name;
+	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(length = 100)
-	
 	private String password;
-	@Column(nullable = false, length = 100)
-	private String name;
 	
-	@Column(length = 100)
-	private String provider;
 }

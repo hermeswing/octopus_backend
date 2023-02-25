@@ -1,7 +1,8 @@
-package octopus.entity;
+package octopus.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import octopus.entity.CommonResult;
 
 import java.util.List;
 

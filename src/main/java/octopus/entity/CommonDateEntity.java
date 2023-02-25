@@ -16,7 +16,12 @@ import lombok.Getter;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class CommonDateEntity implements Serializable {
-	@CreatedDate
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    @CreatedDate
 	private LocalDateTime createdAt;
 	@LastModifiedDate
 	private LocalDateTime modifiedAt;

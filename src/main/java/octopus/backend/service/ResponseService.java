@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import octopus.entity.CommonResult;
-import octopus.entity.ListResult;
-import octopus.entity.SingleResult;
+import octopus.model.ListResult;
+import octopus.model.SingleResult;
 
 @Service
 public class ResponseService {
