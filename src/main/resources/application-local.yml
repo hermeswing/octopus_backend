@@ -1,0 +1,58 @@
+# Server port
+server:
+  port: 9090
+  servlet:
+    context-path: /
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+    session:
+      timeout: 18000                              # 30분, Default 기본단위 : 초
+      
+  tomcat:
+    uri-encoding: UTF-8                         # Spring Default : UTF-8
+
+##############################################################
+# Spring Message 처리
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties.hibernate:
+        hbm2ddl.auto: update
+        format_sql: true
+    showSql: true
+    generate-ddl: true
+  messages:
+    basename: messages/messages, messages/exception		# 각각 ResourceBundle 규칙을 따르는 쉼표로 구분된 기본 이름 목록
+    always-use-message-format: false	# 인수가 없는 메시지도 구문 분석하여 항상 MessageFormat 규칙을 적용할지 여부
+    encoding: UTF-8
+    fallback-to-system-locale: true		# locale에 해당하는 file이 없을 경우 system locale을 사용 ( default : true )
+    use-code-as-default-message: true	# 해당 코드를 찾을 수 없을 경우 Code 를 출력한다. ( default : false )
+    cache-seconds: -1					# 로드된 자원 번들 파일 캐시 만료(초). -1로 설정하면 번들은 영원히 캐시됩니다.
+
+# Logging
+logging:
+  level:  # 각 package 별로 로깅 레벨을 지정할 수 있다.
+    root : info
+    octopus: debug
+    org:
+      springframework: WARN
+  pattern:
+    console: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger.%method[%line]: - %msg%n"
+    file: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger.%method[%line]: - %msg%n"
+  file:
+    name: /Octopus/logs/app_log.log  # 로깅 파일 위치이다.
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB               #default 10M 로그 파일 하나당 최대 파일 사이즈이다.
+      max-history: 31                   #default 7 로그 파일 삭제 주기이다. 7일 이후 로그는 삭제한다.
+      file-name-pattern: app_log.%d{yyyy-MM-dd}.%i.gz
