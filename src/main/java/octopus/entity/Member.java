@@ -1,9 +1,9 @@
 package octopus.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -33,18 +33,23 @@ public class Member extends CommonDateEntity {
      */
     private static final long serialVersionUID = 1246865649224168898L;
 
-    @Id // pk
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long seq;
-	
-	@Column(nullable = false, unique = true, length = 50)
-	private String id;
+    /**
+     * 구분자(S:직원, T:외부직원, Z:임시계정) + 년월일(8자리) + sequence(5자리) 
+     */
+    @Id          // pk
+	@Column(nullable = false, unique = true, length = 14)
+	private String memberId;
 	
     @Column(nullable = false, length = 100)
     private String name;
 	
+    @Column(length = 100)
+    private String email;
+    
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(length = 100)
 	private String password;
 	
+    @Column(length = 100)
+    private LocalDateTime loginDateTime;
 }

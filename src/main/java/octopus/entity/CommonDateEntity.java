@@ -22,7 +22,7 @@ public abstract class CommonDateEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @CreatedDate
-	private LocalDateTime createdAt;
+	private LocalDateTime createdDate;
 	@LastModifiedDate
-	private LocalDateTime modifiedAt;
+	private LocalDateTime modifiedDate;
 }
