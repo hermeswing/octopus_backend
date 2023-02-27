@@ -47,7 +47,11 @@ public class MemberService {
             CustomId         customeId = CustomId.builder().idName("USER_ID").gubun("S")
                     .ymd(dtFormat.format(new Date())).seq("00001").rmk("사원ID 생성").build();
             
-            customIdJpaDao.save(customeId);
+            customeId = customIdJpaDao.save(customeId);
+            
+            
+            
+            
             
             list = customIdJpaDao.findGroupByCustomIdWithNativeQuery();
             

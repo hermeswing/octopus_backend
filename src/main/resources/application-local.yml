@@ -12,11 +12,14 @@ spring:
     #database-platform: org.hibernate.dialect.PostgreSQLDialect
     #show-sql: true       # System.out 으로 출력. logging.level.org.hibernate.SQL=debug 대체 
     hibernate:
-      ddl-auto: update    # create-drop, update, validate, none
+      # create : entity를 drop cascade 하고 다시 생성
+      # update : entity가 수정되면 수정된 내용만 반영
+      # create-drop,validate, none
+      ddl-auto: create
     #generate-ddl: true
     properties:           # Additional native properties to set on the JPA provider.
       hibernate:
-        show-sql: true
+        #show-sql: true                  #System.out 으로 출력
         format_sql: true                # 로그, 콘솔의 SQL을 좀 더 이쁘게 출력합니다.
         highlight_sql: true             # SQL 출력을 ANSI escape codes를 사용하여 색을 부여합니다.
         use_sql_comments: true          # 보다 쉬운 디버깅을 위해 SQL 내부에 /* */의 주석을 추가합니다.
@@ -25,8 +28,11 @@ spring:
       enabled: true
       path: /h2-console
   datasource:
+    #url: jdbc:h2:tcp://localhost/~/test;MVCC=TRUE    # H2 1.4.200 버전부터 MVCC 옵션이 제거
     url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
+    #url: jdbc:p6spy:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE    # P6Spy
+    driver-class-name: org.h2.Driver                      # H2 Database
+    #driver-class-name: com.p6spy.engine.spy.P6SpyDriver    # P6Spy
     username: sa
     password:  
 
@@ -36,8 +42,8 @@ logging:
     root : info
     octopus: debug
     org.springframework: WARN
-    org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql: trace    # sql의 ? 값을 Parameter로 보여줌.
+    #org.hibernate.SQL: debug                    # logger를 통해 하이버네이트 실행 SQL
+    #org.hibernate.type.descriptor.sql: trace    # sql의 ? 값을 Parameter로 보여줌.
   pattern:
     console: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger.%method[%line]: - %msg%n"
     file: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger.%method[%line]: - %msg%n"
@@ -48,3 +54,6 @@ logging:
       max-file-size: 10MB               #default 10M 로그 파일 하나당 최대 파일 사이즈이다.
       max-history: 31                   #default 7 로그 파일 삭제 주기이다. 7일 이후 로그는 삭제한다.
       file-name-pattern: app_log.%d{yyyy-MM-dd}.%i.gz
+      
+decorator.datasource.p6spy.enable-logging: true     # false : Disable p6spy
+#decorator.datasource.enable: true
