@@ -15,7 +15,9 @@ spring:
       # create : entity를 drop cascade 하고 다시 생성
       # update : entity가 수정되면 수정된 내용만 반영
       # create-drop,validate, none
-      ddl-auto: create
+      # 하이버네이트가 자동으로 생성해주는 DDL은 신뢰성이 떨어지기 때문에 
+      # 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
+      ddl-auto: none
     #generate-ddl: true
     properties:           # Additional native properties to set on the JPA provider.
       hibernate:

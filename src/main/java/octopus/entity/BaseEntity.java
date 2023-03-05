@@ -15,7 +15,7 @@ import lombok.Getter;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class CommonDateEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
 	/**
      * 
      */
