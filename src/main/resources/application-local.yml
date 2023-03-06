@@ -49,6 +49,7 @@ logging:
       max-file-size: 10MB               #default 10M 로그 파일 하나당 최대 파일 사이즈이다.
       max-history: 31                   #default 7 로그 파일 삭제 주기이다. 7일 이후 로그는 삭제한다.
       file-name-pattern: app_log.%d{yyyy-MM-dd}.%i.gz
-      
+
+# p6spy 를 위한 설정
 decorator.datasource.p6spy.enable-logging: true     # false : Disable p6spy
 #decorator.datasource.enable: true
