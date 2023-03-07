@@ -31,6 +31,7 @@ spring:
     
 ##############################################################
 # Swagger pathmatch
+#spring.mvc.pathmatch.matching-strategy=ant_path_matcher
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher  
+      matching-strategy: ant-path-matcher

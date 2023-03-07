@@ -104,27 +104,27 @@ public class ExceptionAdvice {
             errMsg  = se.getMessage();
         } else if (ex instanceof DuplicateKeyException) {
             // 고유성 제한 위반과 같은 데이터 삽입 또는 업데이트시 무결성 위반
-            errCode = "1";
+            errCode = "-1";
             errMsg  = "데이터 중복오류";
         } else if (ex instanceof DataIntegrityViolationException) {
             // 고유성 제한 위반과 같은 데이터 삽입 또는 업데이트시 무결성 위반
-            errCode = "1";
+            errCode = "-1";
             errMsg  = "등록된 데이터가 컬럼의 속성과 다릅니다. (길이, 속성, 필수입력항목 등..)";
         } else if (ex instanceof DataAccessResourceFailureException) {
             // 데이터 액세스 리소스가 완전히 실패했습니다 (예 : 데이터베이스에 연결할 수 없음)
-            errCode = "1";
+            errCode = "-1";
             errMsg  = "데이터베이스 연결오류";
         } else if (ex instanceof CannotAcquireLockException) {
             
         } else if (ex instanceof DeadlockLoserDataAccessException) {
             // 교착 상태로 인해 현재 작업이 실패했습니다.
-            errCode = "1";
+            errCode = "-1";
             errMsg  = "교착 상태로 인한 현재 작업 실패";
         } else if (ex instanceof CannotSerializeTransactionException) {
             errCode = "1";
             errMsg  = "직렬화 모드에서 트랜잭션을 완료 할 수 없음";
         } else {
-            errCode = "1";
+            errCode = "-1";
             errMsg  = ex.getMessage();
         }
         

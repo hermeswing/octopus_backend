@@ -21,8 +21,15 @@ public abstract class BaseEntity implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     
+	private LocalDateTime crtId;
+	
     @CreatedDate
-	private LocalDateTime createdDate;
+	private LocalDateTime crtDt;
+	
+	private LocalDateTime mdfId;
+	
 	@LastModifiedDate
-	private LocalDateTime modifiedDate;
+	private LocalDateTime mdfDt;
+	
+	
 }

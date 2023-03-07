@@ -36,7 +36,7 @@ public class MemberService {
     public List<MemberDto> findAllMember() {
         return memberJpaDao.findAll().stream().map(MemberDto::new).collect(Collectors.toList());
     }
-    
+/*
     @Transactional
     public String save(MemberDto memberDto) {
         List<CustomId> list = customIdJpaDao.findGroupByCustomIdWithNativeQuery();
@@ -48,10 +48,6 @@ public class MemberService {
                     .ymd(dtFormat.format(new Date())).seq("00001").rmk("사원ID 생성").build();
             
             customeId = customIdJpaDao.save(customeId);
-            
-            
-            
-            
             
             list = customIdJpaDao.findGroupByCustomIdWithNativeQuery();
             
@@ -72,4 +68,5 @@ public class MemberService {
     public void delete(String id) {
         memberJpaDao.deleteById(id);
     }
+*/
 }

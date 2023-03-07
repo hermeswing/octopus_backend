@@ -8,8 +8,8 @@ spring:
   config.activate.on-profile: local
   jpa:
     open-in-view: false
-    database-platform: org.hibernate.dialect.H2Dialect
-    #database-platform: org.hibernate.dialect.PostgreSQLDialect
+    #database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     #show-sql: true       # System.out 으로 출력. logging.level.org.hibernate.SQL=debug 로 대체합니다. 
     hibernate:
       # create : entity를 drop cascade 하고 다시 생성

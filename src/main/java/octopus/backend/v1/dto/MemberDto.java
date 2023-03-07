@@ -24,7 +24,7 @@ public class MemberDto {
         this.email = member.getEmail();
         this.name = member.getName();
         this.loginDateTime = member.getLoginDateTime();
-        this.modifiedDate = member.getModifiedDate();
+        this.modifiedDate = member.getMdfDt();
     }
 
     public Member toEntity() {
