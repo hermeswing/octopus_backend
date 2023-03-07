@@ -21,14 +21,14 @@ public abstract class BaseEntity implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     
-	private LocalDateTime crtId;
+	private String crtId;
 	
-    @CreatedDate
+    //@CreatedDate
 	private LocalDateTime crtDt;
 	
-	private LocalDateTime mdfId;
+	private String mdfId;
 	
-	@LastModifiedDate
+	//@LastModifiedDate
 	private LocalDateTime mdfDt;
 	
 	

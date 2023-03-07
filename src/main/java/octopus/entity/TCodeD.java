@@ -96,7 +96,7 @@ public class TCodeD extends BaseEntity {
      * 숫자옵션명#2
      */
     @Column
-    private int numOptNm_2;
+    private int numOpt_2;
     
     /**
      * 숫자옵션명#3
@@ -108,13 +108,13 @@ public class TCodeD extends BaseEntity {
      * 숫자옵션명#4
      */
     @Column
-    private int numOptNm_4;
+    private int numOpt_4;
     
     /**
      * 숫자옵션명#5
      */
     @Column
-    private int numOptNm_5;
+    private int numOpt_5;
     
     /**
      * 비고

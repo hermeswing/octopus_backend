@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.backend.service.ResponseService;
-import octopus.backend.v1.dto.CodeDto;
+import octopus.backend.v1.dto.TCodeMDto;
 import octopus.backend.v1.service.CodeService;
 import octopus.model.SingleResult;
 
@@ -19,15 +19,16 @@ import octopus.model.SingleResult;
 @Api(tags = { "1. 대분류 Code" })
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/master")
 public class CodeMController {
 
 	private final CodeService codeService;
 	private final ResponseService responseService;
 
 	@ApiOperation(value = "대분류 단건 검색", notes = "대분류 코드를 조회합니다.")
-	@GetMapping("/master/code/cd/{pCd}")
-	public SingleResult<CodeDto> findByCd(@ApiParam(value = "대분류 코드", required = true) @PathVariable String pCd) {
+	@GetMapping("/code/cd/{pCd}")
+	public SingleResult<TCodeMDto> findCodeByCd(
+	        @ApiParam(value = "대분류 코드", required = true) @PathVariable String pCd) {
 		log.debug("여기......");
 		return responseService.getSingleResult(codeService.findByCd(pCd));
 	}
