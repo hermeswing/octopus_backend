@@ -1,5 +1,6 @@
-PostgreSQL 사용법
+# PostgreSQL 사용법
 
+```sql
 현재 시간 가져오는 방법
 SELECT NOW();
 SELECT PG_TYPEOF(NOW());
@@ -9,9 +10,17 @@ SELECT CURRENT_TIME;
 SELECT CURRENT_DATE;
 
 SELECT PG_TYPEOF(CURRENT_TIMESTAMP);
+```
 
-날짜 Format 방법
+# 날짜 Format 방법
+
+```sql
 SELECT TO_CHAR(NOW(), 'YYYYMMDD')
+```
 
-날짜로 변경 방법
+# 날짜로 변경 방법
+
+```sql
 SELECT TO_TIMESTAMP('20230101', 'YYYYMMDD')
+```
+
