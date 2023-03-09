@@ -25,8 +25,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.advice.exception.CUserNotFoundException;
+import octopus.advice.exception.CustomException;
 import octopus.backend.service.ResponseService;
 import octopus.entity.CommonResult;
+
+import static octopus.advice.ErrorCode.INTERNAL_SERVER_ERROR;
 
 @RequiredArgsConstructor
 @RestControllerAdvice
@@ -42,6 +45,13 @@ public class ExceptionAdvice {
     protected CommonResult argumentException(HttpServletRequest request, IllegalArgumentException e) {
         // 예외 처리의 메시지를 MessageSource에서 가져오도록 수정
         return responseService.getFailResult(-1, getMessage("argumentException"));
+    }
+    
+    @ExceptionHandler(CustomException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult userNotFoundException(HttpServletRequest request, CustomException e) {
+        // 예외 처리의 메시지를 MessageSource에서 가져오도록 수정
+        return responseService.getFailResult(INTERNAL_SERVER_ERROR.getStatus(), INTERNAL_SERVER_ERROR.getMessage());
     }
     
     @ExceptionHandler(CUserNotFoundException.class)

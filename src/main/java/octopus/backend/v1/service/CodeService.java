@@ -1,5 +1,8 @@
 package octopus.backend.v1.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,27 +25,24 @@ public class CodeService {
         return new TCodeMDto(tCodeM);
     }
     
-    /*
     @Transactional(readOnly = true)
-    public List<CodeDto> findAllCd() {
-        return codeJpaDao.findAll().stream().map(CodeDto::new).collect(Collectors.toList());
+    public List<TCodeMDto> findAllCd() {
+        return codeJpaDao.findAll().stream().map(TCodeMDto::new).collect(Collectors.toList());
     }
-
+    
     @Transactional
-    public String save(CodeDto codeDto) {
-        Optional<CodeDto> saved = codeJpaDao.save(codeDto);
-        return saved.get().getCd();
+    public void save(TCodeMDto tCodeMDto) {
+        codeJpaDao.save(tCodeMDto);
     }
-
-    @Transactional
-    public String update(CodeDto codeDto) {
-        Optional<CodeDto> updated = codeJpaDao.save(codeDto);
-        return updated.get().getCd();
-    }
-
-    @Transactional
-    public void delete(String cd) {
-        codeJpaDao.deleteById(cd);
-    }
-*/
+    
+    // @Transactional
+    // public String update(CodeDto codeDto) {
+    // Optional<CodeDto> updated = codeJpaDao.save(codeDto);
+    // return updated.get().getCd();
+    // }
+    //
+    // @Transactional
+    // public void delete(String cd) {
+    // codeJpaDao.deleteById(cd);
+    // }
 }
