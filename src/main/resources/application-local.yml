@@ -18,13 +18,13 @@ spring:
       # 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
       ddl-auto: none
     #generate-ddl: true
-    properties:           # Additional native properties to set on the JPA provider.
-      hibernate:
-        #show-sql: true                  #System.out 으로 출력
-        format_sql: true                # 로그, 콘솔의 SQL을 좀 더 이쁘게 출력합니다.
-        highlight_sql: true             # SQL 출력을 ANSI escape codes를 사용하여 색을 부여합니다.
-        use_sql_comments: true          # 보다 쉬운 디버깅을 위해 SQL 내부에 /* */의 주석을 추가합니다.
-  h2:                                   # H2-2.1.214
+    #properties:           # Additional native properties to set on the JPA provider.
+      #hibernate:
+        #show-sql: true                  # System.out 으로 출력
+        #format_sql: true                # 로그, 콘솔의 SQL을 좀 더 이쁘게 출력합니다.
+        #highlight_sql: true             # SQL 출력을 ANSI escape codes를 사용하여 색을 부여합니다.
+        #use_sql_comments: true          # 보다 쉬운 디버깅을 위해 SQL 내부에 /* */의 주석을 추가합니다.
+  h2:                                    # H2-2.1.214
     console:
       enabled: true
       path: /h2-console

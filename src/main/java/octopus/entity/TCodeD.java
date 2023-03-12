@@ -5,23 +5,26 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Proxy;
+import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
-@Builder // builder를 사용할수 있게 합니다.
 @Entity // jpa entity임을 알립니다.
 @Getter // getter를 자동으로 생성합니다.
-@Setter
-@NoArgsConstructor // 인자없는 생성자를 자동으로 생성합니다.
-@AllArgsConstructor // 인자를 모두 갖춘 생성자를 자동으로 생성합니다.
+// @Setter // 객체가 무분별하게 변경될 가능성 있음
+@Builder
+@ToString(exclude = { "crtId", "crtDt", "mdfId", "mdfDt" }) // 연관관계 매핑된 엔티티 필드는 제거. 연관 관계 필드는 toString()에서 사용하지 않는 것이 좋습니다.
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 인자없는 생성자를 자동으로 생성합니다. 기본 생성자의 접근 제어자가 불명확함. (access = AccessLevel.PROTECTED) 추가
+// @AllArgsConstructor // 객체 내부의 인스턴스멤버들을 모두 가지고 있는 생성자를 생성 (매우 위험)
 @Table(name = "T_CODE_D")
 @IdClass(TCodeDPK.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
@@ -29,10 +32,42 @@ import lombok.Setter;
 public class TCodeD extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
+    @Override
+    public String getId() {
+        return this.pCd;
+    }
+    
+    @Builder
+    public TCodeD(String pCd, String cd, String cdNm, String useYn, String rmk, String wdOpt1, String wdOpt2,
+            String wdOpt3, String wdOpt4, String wdOpt5, int numOpt1, int numOpt2, int numOpt3, int numOpt4,
+            int numOpt5) {
+        Assert.hasText(pCd, "pCd must not be empty");
+        Assert.hasText(cd, "cd must not be empty");
+        Assert.hasText(cdNm, "cdNm must not be empty");
+        Assert.hasText(useYn, "useYn must not be empty");
+        
+        this.pCd     = pCd;
+        this.cd      = cd;
+        this.cdNm    = cdNm;
+        this.useYn   = useYn;
+        this.rmk     = rmk;
+        this.wdOpt1  = wdOpt1;
+        this.wdOpt2  = wdOpt2;
+        this.wdOpt3  = wdOpt3;
+        this.wdOpt4  = wdOpt4;
+        this.wdOpt5  = wdOpt5;
+        this.numOpt1 = numOpt1;
+        this.numOpt2 = numOpt2;
+        this.numOpt3 = numOpt3;
+        this.numOpt4 = numOpt4;
+        this.numOpt5 = numOpt5;
+    }
+    
     /**
      * 상위 코드
      */
     @Id // pk
+    @NotEmpty
     @Column(nullable = false, unique = true, length = 50)
     private String pCd;
     
@@ -40,81 +75,83 @@ public class TCodeD extends BaseEntity {
      * 코드
      */
     @Id // pk
+    @NotEmpty
     @Column(nullable = false, unique = true, length = 50)
     private String cd;
     
     /**
-     * 대분류 코드명
+     * 코드명
      */
+    @NotEmpty
     @Column(nullable = false, length = 200)
     private String cdNm;
     
     /**
      * 사용여부
      */
+    @NotEmpty
     @Column(nullable = false, length = 1)
-    @Builder.Default
     private String useYn = "N";
     
     /**
      * 문자옵션명#1
      */
     @Column(length = 200)
-    private String wdOpt_1;
+    private String wdOpt1;
     
     /**
      * 문자옵션명#2
      */
     @Column(length = 200)
-    private String wdOpt_2;
+    private String wdOpt2;
     
     /**
      * 문자옵션명#3
      */
     @Column(length = 200)
-    private String wdOpt_3;
+    private String wdOpt3;
     
     /**
      * 문자옵션명#4
      */
     @Column(length = 200)
-    private String wdOpt_4;
+    private String wdOpt4;
     
     /**
      * 문자옵션명#5
      */
     @Column(length = 200)
-    private String wdOpt_5;
+    private String wdOpt5;
     
     /**
      * 숫자옵션명#1
      */
     @Column
-    private int numOpt_1;
+    private int numOpt1;
     
     /**
      * 숫자옵션명#2
      */
     @Column
-    private int numOpt_2;
+    private int numOpt2;
     
     /**
      * 숫자옵션명#3
      */
     @Column
-    private int numOpt_3;
+    private int numOpt3;
     
     /**
      * 숫자옵션명#4
      */
     @Column
-    private int numOpt_4;
+    private int numOpt4;
     
     /**
      * 숫자옵션명#5
      */
     @Column
-    private int numOpt_5;
+    private int numOpt5;
     
     /**
      * 비고

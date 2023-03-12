@@ -4,7 +4,7 @@
     <property name="LOG_PATH" value="C:/Octopus/logs" />
 
     <!-- pattern -->
-    <property name="LOG_PATTERN" value="%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger[%method:%line] - %msg%n" />
+    <property name="LOG_PATTERN" value="%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %30logger[%method:%line] - %msg%n" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -31,14 +31,16 @@
         </rollingPolicy>
     </appender>
 
+	<logger name="org.springframework.orm.jpa.JpaTransactionManager" level="DEBUG"  additivity="false"/>
+
     <logger name="octopus" level="debug" additivity="false">
         <!-- ref="appender name 지정" -->
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="ROLLING-FILE" />
+        <!-- <appender-ref ref="ROLLING-FILE" /> -->
     </logger>
     <root level="debug">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="ROLLING-FILE" />
+        <!-- <appender-ref ref="ROLLING-FILE" /> -->
     </root>
 
 </configuration>

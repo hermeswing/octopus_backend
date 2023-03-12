@@ -36,17 +36,17 @@ public class TCodeDDto {
         this.cdNm  = code.getCdNm();
         this.useYn = code.getUseYn();
         
-        this.wdOpt1 = code.getWdOpt_1();
-        this.wdOpt2 = code.getWdOpt_2();
-        this.wdOpt3 = code.getWdOpt_3();
-        this.wdOpt4 = code.getWdOpt_4();
-        this.wdOpt5 = code.getWdOpt_5();
+        this.wdOpt1 = code.getWdOpt1();
+        this.wdOpt2 = code.getWdOpt2();
+        this.wdOpt3 = code.getWdOpt3();
+        this.wdOpt4 = code.getWdOpt4();
+        this.wdOpt5 = code.getWdOpt5();
         
-        this.numOpt1 = code.getNumOpt_1();
-        this.numOpt2 = code.getNumOpt_2();
-        this.numOpt3 = code.getNumOpt_3();
-        this.numOpt4 = code.getNumOpt_4();
-        this.numOpt5 = code.getNumOpt_5();
+        this.numOpt1 = code.getNumOpt1();
+        this.numOpt2 = code.getNumOpt2();
+        this.numOpt3 = code.getNumOpt3();
+        this.numOpt4 = code.getNumOpt4();
+        this.numOpt5 = code.getNumOpt5();
         
         this.rmk = code.getRmk();
     }
