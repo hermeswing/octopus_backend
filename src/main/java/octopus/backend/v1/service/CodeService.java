@@ -56,6 +56,16 @@ public class CodeService {
     }
     
     @Transactional
+    public void update02(TCodeMDto tCodeMDto) {
+        
+        Optional<TCodeM> tCodeM = codeRepository.findBypCd(tCodeMDto.getPCd());
+        
+        log.debug("TCodeM :: {}", tCodeM.get());
+        
+        tCodeM.get().updateCodeM(tCodeMDto);
+    }
+    
+    @Transactional
     public void delete(TCodeMDto tCodeMDto) {
         
         log.debug("tCodeMDto :: {}", tCodeMDto);

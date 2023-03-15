@@ -97,7 +97,7 @@ public class CodeMController {
         
         log.debug("tCodeMDto :: {}", tCodeMDto);
         
-        codeService.update(tCodeMDto);
+        codeService.update02(tCodeMDto);
         
         return responseService.getSingleResult("성공");
     }

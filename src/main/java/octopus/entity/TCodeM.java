@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import octopus.backend.v1.dto.TCodeMDto;
 
 @Entity // jpa entity임을 알립니다.
 @Getter // getter를 자동으로 생성합니다.
@@ -57,6 +58,22 @@ public class TCodeM extends BaseEntity {
         this.numOptNm3 = numOptNm3;
         this.numOptNm4 = numOptNm4;
         this.numOptNm5 = numOptNm5;
+    }
+    
+    public void updateCodeM(TCodeMDto tCodeMDto) {
+        this.pCdNm     = tCodeMDto.getPCdNm();
+        this.useYn     = tCodeMDto.getUseYn();
+        this.rmk       = tCodeMDto.getRmk();
+        this.wdOptNm1  = tCodeMDto.getWdOptNm1();
+        this.wdOptNm2  = tCodeMDto.getWdOptNm2();
+        this.wdOptNm3  = tCodeMDto.getWdOptNm3();
+        this.wdOptNm4  = tCodeMDto.getWdOptNm4();
+        this.wdOptNm5  = tCodeMDto.getWdOptNm5();
+        this.numOptNm1 = tCodeMDto.getNumOptNm1();
+        this.numOptNm2 = tCodeMDto.getNumOptNm2();
+        this.numOptNm3 = tCodeMDto.getNumOptNm3();
+        this.numOptNm4 = tCodeMDto.getNumOptNm4();
+        this.numOptNm5 = tCodeMDto.getNumOptNm5();
     }
     
     /**
