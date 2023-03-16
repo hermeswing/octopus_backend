@@ -17,36 +17,36 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.backend.service.ResponseService;
 import octopus.backend.v1.dto.TCodeMDto;
-import octopus.backend.v1.service.CodeMService;
+import octopus.backend.v1.service.CodeDService;
 import octopus.entity.CommonResult;
 import octopus.entity.TCodeM;
 import octopus.model.ListResult;
 import octopus.model.SingleResult;
 
 @Slf4j
-@Api(tags = { "1. Master Code" })
+@Api(tags = { "1. Detail Code" })
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/master")
-public class CodeMController {
+@RequestMapping("/v1/detail")
+public class CodeDController {
     
     private final MessageSourceAccessor messageSourceAccessor;
-    private final CodeMService           codeMService;
+    private final CodeDService          codeDService;
     private final ResponseService       responseService;
     
-    @ApiOperation(value = "대분류 단건 검색", notes = "대분류 코드를 조회합니다.")
+    @ApiOperation(value = "공통코드 단건 검색", notes = "공통코드를 조회합니다.")
     @GetMapping("/code/cd/{pCd}")
-    public SingleResult<TCodeMDto> findCodeByCd(@ApiParam(value = "대분류 코드", required = true) @PathVariable String pCd) {
-        return responseService.getSingleResult(codeMService.findByCd(pCd));
+    public SingleResult<TCodeMDto> findCodeByCd(@ApiParam(value = "공통코드", required = true) @PathVariable String pCd) {
+        return responseService.getSingleResult(codeDService.findByCd(pCd));
     }
     
-    @ApiOperation(value = "코드 목록 조회", notes = "모든 코드을 조회합니다.")
+    @ApiOperation(value = "공통코드 목록 조회", notes = "모든 코드을 조회합니다.")
     @GetMapping("/codes")
     public ListResult<TCodeMDto> findAllCode() {
-        return responseService.getListResult(codeMService.findAllCd());
+        return responseService.getListResult(codeDService.findAllCd());
     }
     
-    @ApiOperation(value = "코드 저장", notes = "코드 정보를 저장합니다.")
+    @ApiOperation(value = "공통코드 저장", notes = "공통코드 정보를 저장합니다.")
     @PostMapping("/code")
     public SingleResult<TCodeMDto> save(
             @ApiParam(value = "대분류 코드", required = true) @RequestParam(required = true) String pCd,
@@ -70,12 +70,12 @@ public class CodeMController {
         
         log.debug("tCodeMDto :: {}", tCodeMDto);
         
-        TCodeM tCodeM = codeMService.save(tCodeMDto);
+        TCodeM tCodeM = codeDService.save(tCodeMDto);
         
         return responseService.getSingleResult(new TCodeMDto(tCodeM));
     }
     
-    @ApiOperation(value = "코드 수정", notes = "코드 정보를 수정합니다.")
+    @ApiOperation(value = "공통코드 수정", notes = "공통코드 정보를 수정합니다.")
     @PutMapping("/code")
     public SingleResult<String> update(
             @ApiParam(value = "대분류 코드", required = true) @RequestParam(required = true) String pCd,
@@ -99,18 +99,18 @@ public class CodeMController {
         
         log.debug("tCodeMDto :: {}", tCodeMDto);
         
-        codeMService.update02(tCodeMDto);
+        codeDService.update02(tCodeMDto);
         
         return responseService.getSingleResult(messageSourceAccessor.getMessage("msg.itIsSaved")); // 저장되었습니다.
     }
     
-    @ApiOperation(value = "코드 삭제", notes = "코드을 삭제합니다.")
+    @ApiOperation(value = "공통코드 삭제", notes = "공통코드를 삭제합니다.")
     @DeleteMapping("/code/{pCd}")
-    public CommonResult delete(@ApiParam(value = "대분류 코드", required = true) @RequestParam(required = true) String pCd) {
+    public CommonResult delete(@ApiParam(value = "공통코드", required = true) @RequestParam(required = true) String pCd) {
         
         TCodeMDto tCodeMDto = TCodeMDto.builder().pCd(pCd).useYn("N").build();
         
-        codeMService.delete(tCodeMDto);
+        codeDService.delete(tCodeMDto);
         
         return responseService.getSingleResult(messageSourceAccessor.getMessage("msg.itIsDeleted")); // 삭제되었습니다.
     }

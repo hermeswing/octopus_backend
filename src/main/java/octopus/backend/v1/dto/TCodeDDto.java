@@ -4,13 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import octopus.entity.TCodeD;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class TCodeDDto {
+    private final long serialVersionUID = 1L;
+    
     private String pCd;
     private String cd;
     private String cdNm;
@@ -30,25 +36,20 @@ public class TCodeDDto {
     
     private String rmk;
     
+    private String crtId;
+    private String crtDt;
+    private String mdfId;
+    private String mdfDt;
+    
     public TCodeDDto(TCodeD code) {
-        this.pCd   = code.getPCd();
-        this.cd    = code.getCd();
-        this.cdNm  = code.getCdNm();
-        this.useYn = code.getUseYn();
-        
-        this.wdOpt1 = code.getWdOpt1();
-        this.wdOpt2 = code.getWdOpt2();
-        this.wdOpt3 = code.getWdOpt3();
-        this.wdOpt4 = code.getWdOpt4();
-        this.wdOpt5 = code.getWdOpt5();
-        
-        this.numOpt1 = code.getNumOpt1();
-        this.numOpt2 = code.getNumOpt2();
-        this.numOpt3 = code.getNumOpt3();
-        this.numOpt4 = code.getNumOpt4();
-        this.numOpt5 = code.getNumOpt5();
-        
-        this.rmk = code.getRmk();
+        TCodeDDto.builder().pCd(code.getPCd()).cd(cd).cdNm(cdNm).useYn(useYn).wdOpt1(wdOpt1).wdOpt2(wdOpt2)
+                .wdOpt3(wdOpt3).wdOpt4(wdOpt4).wdOpt5(wdOpt5).numOpt1(numOpt1).numOpt2(numOpt2).numOpt3(numOpt3)
+                .numOpt4(numOpt4).numOpt5(numOpt5).rmk(rmk).crtId(crtId).crtDt(crtDt).mdfId(mdfId).mdfDt(mdfDt).build();
     }
     
+    public TCodeD toEntity() {
+        return TCodeD.builder().pCd(pCd).cd(cd).cdNm(cdNm).useYn(useYn).wdOpt1(wdOpt1).wdOpt2(wdOpt2).wdOpt3(wdOpt3)
+                .wdOpt4(wdOpt4).wdOpt5(wdOpt5).numOpt1(numOpt1).numOpt2(numOpt2).numOpt3(numOpt3).numOpt4(numOpt4)
+                .numOpt5(numOpt5).rmk(rmk).build();
+    }
 }

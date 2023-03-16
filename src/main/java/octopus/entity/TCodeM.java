@@ -60,6 +60,9 @@ public class TCodeM extends BaseEntity {
         this.numOptNm5 = numOptNm5;
     }
     
+    /**
+     * 마스터 Code Update
+     */
     public void updateCodeM(TCodeMDto tCodeMDto) {
         this.pCdNm     = tCodeMDto.getPCdNm();
         this.useYn     = tCodeMDto.getUseYn();
@@ -74,6 +77,13 @@ public class TCodeM extends BaseEntity {
         this.numOptNm3 = tCodeMDto.getNumOptNm3();
         this.numOptNm4 = tCodeMDto.getNumOptNm4();
         this.numOptNm5 = tCodeMDto.getNumOptNm5();
+    }
+    
+    /**
+     * 마스터 Code Update - 삭제
+     */
+    public void updateUseYn(TCodeMDto tCodeMDto) {
+        this.useYn = tCodeMDto.getUseYn();
     }
     
     /**

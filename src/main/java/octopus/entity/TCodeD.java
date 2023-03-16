@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import octopus.backend.v1.dto.TCodeDDto;
 
 @Entity // jpa entity임을 알립니다.
 @Getter // getter를 자동으로 생성합니다.
@@ -34,7 +35,7 @@ public class TCodeD extends BaseEntity {
     
     @Override
     public String getId() {
-        return this.pCd;
+        return this.cd;
     }
     
     @Builder
@@ -61,6 +62,32 @@ public class TCodeD extends BaseEntity {
         this.numOpt3 = numOpt3;
         this.numOpt4 = numOpt4;
         this.numOpt5 = numOpt5;
+    }
+    
+    /**
+     * 상세 Code Update
+     */
+    public void updateCodeM(TCodeDDto tCodeDDto) {
+        this.cdNm    = tCodeDDto.getCdNm();
+        this.useYn   = tCodeDDto.getUseYn();
+        this.rmk     = tCodeDDto.getRmk();
+        this.wdOpt1  = tCodeDdto.getWdOpt1();
+        this.wdOpt2  = tCodeDdto.getWdOpt2;
+        this.wdOpt3  = tCodeDdto.getWdOpt3;
+        this.wdOpt4  = tCodeDdto.getWdOpt4;
+        this.wdOpt5  = tCodeDdto.getWdOpt5;
+        this.numOpt1 = tCodeDdto.getNumOpt1;
+        this.numOpt2 = tCodeDdto.getNumOpt2;
+        this.numOpt3 = tCodeDdto.getNumOpt3;
+        this.numOpt4 = tCodeDdto.getNumOpt4;
+        this.numOpt5 = tCodeDdto.getNumOpt5;
+    }
+    
+    /**
+     * 상세 Code Update - 삭제
+     */
+    public void updateUseYn(TCodeDDto tCodeDDto) {
+        this.useYn = tCodeDDto.getUseYn();
     }
     
     /**

@@ -9,26 +9,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import octopus.backend.v1.dao.CodeRepository;
+import octopus.backend.v1.dao.CodeMRepository;
 import octopus.backend.v1.dto.TCodeMDto;
 import octopus.entity.TCodeM;
 
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CodeService {
-    private CodeRepository codeRepository;
+public class CodeMService {
+    private CodeMRepository codeMRepository;
     
     @Transactional(readOnly = true)
     public TCodeMDto findByCd(String cd) {
-        log.debug("여기......{}", cd);
-        Optional<TCodeM> tCodeM = codeRepository.findBypCd(cd);
+        Optional<TCodeM> tCodeM = codeMRepository.findBypCd(cd);
         return new TCodeMDto(tCodeM.get());
     }
     
     @Transactional(readOnly = true)
     public List<TCodeMDto> findAllCd() {
-        return codeRepository.findAll().stream().map(TCodeMDto::new).collect(Collectors.toList());
+        return codeMRepository.findAll().stream().map(TCodeMDto::new).collect(Collectors.toList());
     }
     
     @Transactional
@@ -40,7 +39,7 @@ public class CodeService {
         
         log.debug("tCodeM :: {}", tCodeM);
         
-        return codeRepository.save(tCodeM);
+        return codeMRepository.save(tCodeM);
     }
     
     @Transactional
@@ -52,13 +51,12 @@ public class CodeService {
         
         log.debug("tCodeM :: {}", tCodeM);
         
-        return codeRepository.updateTCodeM(tCodeM.getPCd(), tCodeM.getPCdNm());
+        return codeMRepository.updateTCodeM(tCodeM.getPCd(), tCodeM.getPCdNm());
     }
     
     @Transactional
     public void update02(TCodeMDto tCodeMDto) {
-        
-        Optional<TCodeM> tCodeM = codeRepository.findBypCd(tCodeMDto.getPCd());
+        Optional<TCodeM> tCodeM = codeMRepository.findBypCd(tCodeMDto.getPCd());
         
         log.debug("TCodeM :: {}", tCodeM.get());
         
@@ -67,13 +65,10 @@ public class CodeService {
     
     @Transactional
     public void delete(TCodeMDto tCodeMDto) {
+        Optional<TCodeM> tCodeM = codeMRepository.findBypCd(tCodeMDto.getPCd());
         
-        log.debug("tCodeMDto :: {}", tCodeMDto);
+        log.debug("TCodeM :: {}", tCodeM.get());
         
-        TCodeM tCodeM = tCodeMDto.toEntity();
-        
-        log.debug("tCodeM :: {}", tCodeM);
-        
-        codeRepository.deleteBypCd(tCodeMDto.getPCd());
+        tCodeM.get().updateUseYn(tCodeMDto);
     }
 }
