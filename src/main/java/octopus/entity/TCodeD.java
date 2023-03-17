@@ -67,20 +67,20 @@ public class TCodeD extends BaseEntity {
     /**
      * 상세 Code Update
      */
-    public void updateCodeM(TCodeDDto tCodeDDto) {
+    public void updateCodeD(TCodeDDto tCodeDDto) {
         this.cdNm    = tCodeDDto.getCdNm();
         this.useYn   = tCodeDDto.getUseYn();
         this.rmk     = tCodeDDto.getRmk();
-        this.wdOpt1  = tCodeDdto.getWdOpt1();
-        this.wdOpt2  = tCodeDdto.getWdOpt2;
-        this.wdOpt3  = tCodeDdto.getWdOpt3;
-        this.wdOpt4  = tCodeDdto.getWdOpt4;
-        this.wdOpt5  = tCodeDdto.getWdOpt5;
-        this.numOpt1 = tCodeDdto.getNumOpt1;
-        this.numOpt2 = tCodeDdto.getNumOpt2;
-        this.numOpt3 = tCodeDdto.getNumOpt3;
-        this.numOpt4 = tCodeDdto.getNumOpt4;
-        this.numOpt5 = tCodeDdto.getNumOpt5;
+        this.wdOpt1  = tCodeDDto.getWdOpt1();
+        this.wdOpt2  = tCodeDDto.getWdOpt2();
+        this.wdOpt3  = tCodeDDto.getWdOpt3();
+        this.wdOpt4  = tCodeDDto.getWdOpt4();
+        this.wdOpt5  = tCodeDDto.getWdOpt5();
+        this.numOpt1 = tCodeDDto.getNumOpt1();
+        this.numOpt2 = tCodeDDto.getNumOpt2();
+        this.numOpt3 = tCodeDDto.getNumOpt3();
+        this.numOpt4 = tCodeDDto.getNumOpt4();
+        this.numOpt5 = tCodeDDto.getNumOpt5();
     }
     
     /**

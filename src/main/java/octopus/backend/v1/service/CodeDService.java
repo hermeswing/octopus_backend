@@ -47,28 +47,28 @@ public class CodeDService {
         
         log.debug("tCodeDDto :: {}", tCodeDDto);
         
-        TCodeD tCodeM = tCodeDDto.toEntity();
+        TCodeD tCodeD = tCodeDDto.toEntity();
         
-        log.debug("tCodeM :: {}", tCodeM);
+        log.debug("tCodeD :: {}", tCodeD);
         
-        return codeDRepository.updateTCodeD(tCodeM.getPCd(), tCodeM.getPCdNm());
+        return codeDRepository.updateTCodeD(tCodeD.getPCd(), tCodeD.getCd(), tCodeD.getCdNm());
     }
     
     @Transactional
-    public void update02(TCodeDDto tCodeMDto) {
-        Optional<TCodeD> tCodeM = codeDRepository.findByCd(tCodeDDto.getPCd(), tCodeDDto.getCd());
+    public void update02(TCodeDDto tCodeDDto) {
+        Optional<TCodeD> tCodeD = codeDRepository.findByCd(tCodeDDto.getPCd(), tCodeDDto.getCd());
         
-        log.debug("TCodeD :: {}", tCodeM.get());
+        log.debug("TCodeD :: {}", tCodeD.get());
         
-        tCodeM.get().updateCodeD(tCodeDDto);
+        tCodeD.get().updateCodeD(tCodeDDto);
     }
     
     @Transactional
     public void delete(TCodeDDto tCodeDDto) {
-        Optional<TCodeD> tCodeM = codeDRepository.findByCd(tCodeDDto.getPCd(), tCodeDDto.getCd());
+        Optional<TCodeD> tCodeD = codeDRepository.findByCd(tCodeDDto.getPCd(), tCodeDDto.getCd());
         
         log.debug("TCodeD :: {}", tCodeD.get());
         
-        tCodeM.get().updateUseYn(tCodeDDto);
+        tCodeD.get().updateUseYn(tCodeDDto);
     }
 }

@@ -19,6 +19,6 @@ public interface CodeDRepository extends JpaRepository<TCodeD, String> {
     // clearAutomatically : Persistence Context
     @Modifying(clearAutomatically = true)
     @Query("update TCodeD m set m.cdNm = :cdNm where m.pCd = :pCd and m.cd = :cd")
-    int updateTCodeM(@Param(value = "pCd") String pCd, @Param(value = "cd") String cd,
+    int updateTCodeD(@Param(value = "pCd") String pCd, @Param(value = "cd") String cd,
             @Param(value = "cdNm") String cdNm);
 }
