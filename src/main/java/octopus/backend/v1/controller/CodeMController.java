@@ -72,7 +72,7 @@ public class CodeMController {
         
         TCodeM tCodeM = codeMService.save(tCodeMDto);
         
-        return responseService.getSingleResult(new TCodeMDto(tCodeM));
+        return responseService.getSingleResult(TCodeMDto.getDto(tCodeM));
     }
     
     @ApiOperation(value = "코드 수정", notes = "코드 정보를 수정합니다.")

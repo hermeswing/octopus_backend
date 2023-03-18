@@ -11,9 +11,7 @@ import octopus.entity.TCodeD;
 
 // @Repository : JpaRepository를 사용하면 @Repository를 사용하지 않아도 됨.
 public interface CodeDRepository extends JpaRepository<TCodeD, String> {
-    Optional<TCodeD> findByCd(String pCd, String cd);
-    
-    int deleteByCd(String pCd, String cd);
+    Optional<TCodeD> findBypCdAndCd(String pCd, String cd);
     
     //
     // clearAutomatically : Persistence Context
