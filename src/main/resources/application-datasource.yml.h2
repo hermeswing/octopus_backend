@@ -1,0 +1,34 @@
+##############################################################
+# Spring Datasource 처리
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    #url: jdbc:h2:tcp://localhost/~/test;MVCC=TRUE # H2 1.4.200 버전부터 MVCC 옵션이 제거되었습니다.
+    url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:p6spy:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE # P6Spy
+    driver-class-name: org.h2.Driver # H2 Database
+    username: sa
+    password:
+    #
+    #driver-class-name: com.p6spy.engine.spy.P6SpyDriver # P6Spy
+##############################################################
+# - 경로 : /src/main/resources 경로 하위
+# - schema.sql : 테이블 생성 스크립트
+# - data.sql : 데이터 입력 스크립트
+# - 파일이름규칙 : schema-${platform}.sql , data-${platform}.sql
+#   ex. schema-h2.sql , shcema-postgres.sql
+#spring.datasource.initialization-mode=always # Spring Boot <=v2.5.x
+# DB초기화(schema.sql, data.sql) , [always : 기동 시 매번 동작, never : 기동 시 동작하지 않음]
+    #schema: classpath*:initdata/${platform}/schema.sql
+    #data: classpath*:initdata/${platform}/data.sql
+    #schema: classpath*:initdata/h2db/schema.sql
+    #data: classpath*:initdata/h2db/data.sql
+    #initialization-mode: always
+  sql:
+    init:
+      #schema-locations: classpath*:initdata/schema-postgresql.sql
+      #data-locations: classpath*:initdata/data-postgresql.sql
+      schema-locations: classpath*:initdata/schema-h2.sql
+      data-locations: classpath*:initdata/data-h2.sql
+      mode: always          # Spring Boot >=v2.5.0
