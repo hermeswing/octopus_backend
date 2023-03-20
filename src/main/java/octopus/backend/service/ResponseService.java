@@ -2,6 +2,7 @@ package octopus.backend.service;
 
 import java.util.List;
 
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import octopus.entity.CommonResult;
@@ -44,6 +45,14 @@ public class ResponseService {
 	public <T> ListResult<T> getListResult(List<T> list) {
 		ListResult<T> result = new ListResult<>();
 		result.setList(list);
+		setSuccessResult(result);
+		return result;
+	}
+
+	// HATEOAS를 적용한 다중건 결과를 처리하는 메소드
+	public <T> ListResult<T> getListResult(CollectionModel<T> collection) {
+		ListResult<T> result = new ListResult<>();
+		result.setCollection(collection);
 		setSuccessResult(result);
 		return result;
 	}

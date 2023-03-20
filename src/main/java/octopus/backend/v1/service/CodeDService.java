@@ -26,6 +26,26 @@ public class CodeDService {
 	private final ModelMapper modelMapper;
 
 	@Transactional(readOnly = true)
+	public List<TCodeDDto> findSearch(TCodeDDto tCodeDDto) {
+		List<TCodeDDto> list = codeDRepository.findBypCd(tCodeDDto.getPCd()).stream()
+				.map(data -> TCodeDDto.getDto(data)).collect(Collectors.toList());
+
+		log.debug("list :: {}", list);
+
+		return list;
+	}
+
+	@Transactional(readOnly = true)
+	public List<TCodeDDto> findBypCd(String pCd) {
+		List<TCodeDDto> list = codeDRepository.findBypCd(pCd).stream().map(data -> TCodeDDto.getDto(data))
+				.collect(Collectors.toList());
+
+		log.debug("list :: {}", list);
+
+		return list;
+	}
+
+	@Transactional(readOnly = true)
 	public TCodeDDto findBypCdAndCd(String pCd, String cd) {
 		Optional<TCodeD> tCodeD = codeDRepository.findBypCdAndCd(pCd, cd);
 
@@ -41,9 +61,11 @@ public class CodeDService {
 
 	@Transactional(readOnly = true)
 	public List<TCodeDDto> findAllCd() {
-		List<TCodeDDto> list = codeDRepository.findAll().stream().map(data -> TCodeDDto.getDto(data)).collect(Collectors.toList());
-		//List<TCodeDDto> list = codeDRepository.findAll().stream().map(data -> modelMapper.map(data, TCodeDDto.class))
-		//		.collect(Collectors.toList());
+		List<TCodeDDto> list = codeDRepository.findAll().stream().map(data -> TCodeDDto.getDto(data))
+				.collect(Collectors.toList());
+		// List<TCodeDDto> list = codeDRepository.findAll().stream().map(data ->
+		// modelMapper.map(data, TCodeDDto.class))
+		// .collect(Collectors.toList());
 
 		log.debug("list :: {}", list);
 

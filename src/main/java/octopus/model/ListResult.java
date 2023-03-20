@@ -1,13 +1,17 @@
 package octopus.model;
 
+import java.util.List;
+
+import org.springframework.hateoas.CollectionModel;
+
 import lombok.Getter;
 import lombok.Setter;
 import octopus.entity.CommonResult;
 
-import java.util.List;
-
 @Getter
 @Setter
 public class ListResult<T> extends CommonResult {
-    private List<T> list;
+	private List<T> list;
+
+	private CollectionModel<T> collection;
 }
