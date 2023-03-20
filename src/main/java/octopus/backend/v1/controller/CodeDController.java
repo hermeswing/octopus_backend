@@ -1,11 +1,17 @@
 package octopus.backend.v1.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +27,7 @@ import octopus.backend.v1.service.CodeDService;
 import octopus.entity.CommonResult;
 import octopus.entity.TCodeD;
 import octopus.model.ListResult;
+import octopus.model.SearchCriteria;
 import octopus.model.SingleResult;
 
 @Slf4j
@@ -34,14 +41,67 @@ public class CodeDController {
 	private final CodeDService codeDService;
 	private final ResponseService responseService;
 
+	@ApiOperation(value = "GET방식 조회조건 ?searchString=검색조건", notes = "GET방식 조회조건 ?searchString=검색조건 예) http://localhost:9090/v1/detail/code/search?search=userame:sam,age<=20")
+	@GetMapping("/code/search")
+	public ListResult<TCodeDDto> findSearch(
+			@ApiParam(value = "조회조건", required = true) @RequestParam(value = "search", required = false) String searchString) {
+    // public List<User> searchForAll (@RequestParam(value = "search", required = false) String searchString) {
+		List<SearchCriteria> parameters = new ArrayList<SearchCriteria>();
+        if (searchString!= null) {
+            Pattern searchPattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+            Matcher pathMatcher = searchPattern.matcher(searchString + ",");
+            while (pathMatcher.find()) {
+                parameters.add(new SearchCriteria(searchPattern.group(1),
+                  searchPattern.group(2), searchPattern.group(3)));
+            }
+        }
+		
+		
+		List<TCodeDDto> list = codeDService.findSearch(tCodeDDto);
+
+		log.debug("list :: {}", list);
+
+		return responseService.getListResult(list);
+	}
+
+	// HATEOAS
+	// @ApiOperation(value = "대분류 코드에 속한 공통코드 검색", notes = "공통코드를 조회합니다.")
+	// @GetMapping("/code/hateoas/{pCd}")
+	// public ListResult<CollectionModel<EntityModel<TCodeDDto>>> findByHateoasPCd(
+	// @ApiParam(value = "대분류코드", required = true) @PathVariable String pCd) {
+	// // List<TCodeDDto> list = codeDService.findBypCd(pCd);
+	//
+	// List<EntityModel<TCodeDDto>> codes = codeDService.findBypCd(pCd).stream()
+	// .map(data -> EntityModel.of(data,
+	// linkTo(methodOn(CodeDController.class).findByHateoasPCd(data.getPCd())).withSelfRel(),
+	// linkTo(methodOn(CodeDController.class).findAllCode()).withRel("codes")))
+	// .collect(Collectors.toList());
+	// CollectionModel collection = CollectionModel.of(codes,
+	// linkTo(methodOn(CodeDController.class).findAllCode()).withSelfRel());
+	//
+	// // log.debug("list :: {}", list);
+	//
+	// return responseService.getListResult(collection);
+	// }
+
+	@ApiOperation(value = "대분류 코드에 속한 공통코드 검색", notes = "대분류 코드에 속한 공통코드를 조회합니다.")
+	@GetMapping("/code/{pCd}")
+	public ListResult<TCodeDDto> findBypCd(@ApiParam(value = "대분류코드", required = true) @PathVariable String pCd) {
+		List<TCodeDDto> list = codeDService.findBypCd(pCd);
+
+		log.debug("list :: {}", list);
+
+		return responseService.getListResult(list);
+	}
+
 	@ApiOperation(value = "공통코드 단건 검색", notes = "공통코드를 조회합니다.")
 	@GetMapping("/code/cd/{pCd}/{cd}")
 	public SingleResult<TCodeDDto> findBypCdAndCd(@ApiParam(value = "대분류코드", required = true) @PathVariable String pCd,
 			@ApiParam(value = "공통코드", required = true) @PathVariable String cd) {
 		TCodeDDto tCodeDDto = codeDService.findBypCdAndCd(pCd, cd);
-		
+
 		log.debug("tCodeDDto :: {}", tCodeDDto);
-		
+
 		return responseService.getSingleResult(tCodeDDto);
 	}
 
@@ -53,6 +113,9 @@ public class CodeDController {
 
 	@ApiOperation(value = "공통코드 저장", notes = "공통코드 정보를 저장합니다.")
 	@PostMapping("/code")
+	// @PostMapping
+	// public ResponseEntity createTodo(@RequestBody @Valid TCodeDDto tCodeDDto,
+	// Errors errors) {
 	public SingleResult<TCodeDDto> save(
 			@ApiParam(value = "대분류코드", required = true) @RequestParam(required = true) String pCd,
 			@ApiParam(value = "공통코드", required = true) @RequestParam(required = true) String cd,
