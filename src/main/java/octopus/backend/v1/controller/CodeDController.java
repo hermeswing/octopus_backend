@@ -41,7 +41,7 @@ public class CodeDController {
 	private final CodeDService codeDService;
 	private final ResponseService responseService;
 
-	@ApiOperation(value = "GET방식 조회조건 ?searchString=검색조건", notes = "GET방식 조회조건 ?searchString=검색조건 예) http://localhost:9090/v1/detail/code/search?search=userame:sam,age<=20")
+	@ApiOperation(value = "GET방식/detail/code/search?search=검색조건", notes = "검색조건 예) search=userame:sam,age<=20")
 	@GetMapping("/code/search")
 	public ListResult<TCodeDDto> findSearch(
 			@ApiParam(value = "조회조건", required = true) @RequestParam(value = "search", required = false) String searchString) {
@@ -51,13 +51,16 @@ public class CodeDController {
             Pattern searchPattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
             Matcher pathMatcher = searchPattern.matcher(searchString + ",");
             while (pathMatcher.find()) {
-                parameters.add(new SearchCriteria(searchPattern.group(1),
-                  searchPattern.group(2), searchPattern.group(3)));
+                parameters.add(new SearchCriteria(pathMatcher.group(1),
+                        pathMatcher.group(2), pathMatcher.group(3)));
             }
+            
+            log.debug("parameters :: {}", parameters);
         }
 		
 		
-		List<TCodeDDto> list = codeDService.findSearch(tCodeDDto);
+        //List<TCodeDDto> list = codeDService.findSearch(tCodeDDto);
+		List<TCodeDDto> list = null;
 
 		log.debug("list :: {}", list);
 
