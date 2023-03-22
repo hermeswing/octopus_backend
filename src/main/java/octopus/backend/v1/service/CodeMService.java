@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.backend.v1.dao.CodeMRepository;
-import octopus.backend.v1.dto.TCodeDDto;
 import octopus.backend.v1.dto.TCodeMDto;
 import octopus.entity.TCodeM;
 
@@ -42,9 +41,11 @@ public class CodeMService {
 
 	@Transactional(readOnly = true)
 	public List<TCodeMDto> findAllCd() {
-		List<TCodeMDto> list = codeMRepository.findAll().stream().map(data -> TCodeMDto.getDto(data)).collect(Collectors.toList());
-		//List<TCodeMDto> list = codeDRepository.findAll().stream().map(data -> modelMapper.map(data, TCodeMDto.class))
-		//		.collect(Collectors.toList());
+		List<TCodeMDto> list = codeMRepository.findAll().stream().map(data -> TCodeMDto.getDto(data))
+				.collect(Collectors.toList());
+		// List<TCodeMDto> list = codeDRepository.findAll().stream().map(data ->
+		// modelMapper.map(data, TCodeMDto.class))
+		// .collect(Collectors.toList());
 
 		log.debug("list :: {}", list);
 

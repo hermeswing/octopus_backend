@@ -1,7 +1,14 @@
 package octopus.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.hateoas.client.LinkDiscoverer;
+import org.springframework.hateoas.client.LinkDiscoverers;
+import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
+import org.springframework.plugin.core.SimplePluginRegistry;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -24,5 +31,13 @@ public class SwaggerConfiguration {
 	private ApiInfo swaggerInfo() {
 		return new ApiInfoBuilder().title("Spring API Documentation").description("앱 개발시 사용되는 서버 API에 대한 연동 문서입니다")
 				.license("MIT License").licenseUrl("https://hermeslog.tistory.com/").version("1").build();
+	}
+
+	@Bean
+	public LinkDiscoverers discoverers() {
+		List<LinkDiscoverer> plugins = new ArrayList<>();
+		plugins.add(new CollectionJsonLinkDiscoverer());
+		
+		return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
 	}
 }

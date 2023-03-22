@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.validation.Valid;
+
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,21 +48,20 @@ public class CodeDController {
 	@GetMapping("/code/search")
 	public ListResult<TCodeDDto> findSearch(
 			@ApiParam(value = "조회조건", required = true) @RequestParam(value = "search", required = false) String searchString) {
-    // public List<User> searchForAll (@RequestParam(value = "search", required = false) String searchString) {
+		// public List<User> searchForAll (@RequestParam(value = "search", required =
+		// false) String searchString) {
 		List<SearchCriteria> parameters = new ArrayList<SearchCriteria>();
-        if (searchString!= null) {
-            Pattern searchPattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
-            Matcher pathMatcher = searchPattern.matcher(searchString + ",");
-            while (pathMatcher.find()) {
-                parameters.add(new SearchCriteria(pathMatcher.group(1),
-                        pathMatcher.group(2), pathMatcher.group(3)));
-            }
-            
-            log.debug("parameters :: {}", parameters);
-        }
-		
-		
-        //List<TCodeDDto> list = codeDService.findSearch(tCodeDDto);
+		if (searchString != null) {
+			Pattern searchPattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+			Matcher pathMatcher = searchPattern.matcher(searchString + ",");
+			while (pathMatcher.find()) {
+				parameters.add(new SearchCriteria(pathMatcher.group(1), pathMatcher.group(2), pathMatcher.group(3)));
+			}
+
+			log.debug("parameters :: {}", parameters);
+		}
+
+		// List<TCodeDDto> list = codeDService.findSearch(tCodeDDto);
 		List<TCodeDDto> list = null;
 
 		log.debug("list :: {}", list);
@@ -115,10 +117,18 @@ public class CodeDController {
 	}
 
 	@ApiOperation(value = "공통코드 저장", notes = "공통코드 정보를 저장합니다.")
+	@PostMapping("/codeSave")
+	public SingleResult<TCodeDDto> codeSave(@RequestBody @Valid TCodeDDto tCodeDDto, Errors errors) {
+
+		log.debug("tCodeMDto :: {}", tCodeDDto);
+
+		TCodeD tCodeD = codeDService.save(tCodeDDto);
+
+		return responseService.getSingleResult(TCodeDDto.getDto(tCodeD));
+	}
+
+	@ApiOperation(value = "공통코드 저장", notes = "공통코드 정보를 저장합니다.")
 	@PostMapping("/code")
-	// @PostMapping
-	// public ResponseEntity createTodo(@RequestBody @Valid TCodeDDto tCodeDDto,
-	// Errors errors) {
 	public SingleResult<TCodeDDto> save(
 			@ApiParam(value = "대분류코드", required = true) @RequestParam(required = true) String pCd,
 			@ApiParam(value = "공통코드", required = true) @RequestParam(required = true) String cd,
