@@ -20,6 +20,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -39,6 +41,21 @@ public class ExceptionAdvice {
     private final ResponseService responseService;
     
     private final MessageSourceAccessor messageSourceAccessor;
+    
+    /**
+     * @Valid 에 의해 발생되는 Exception 메시지 처리
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonResult methodArgumentNotValidException(MethodArgumentNotValidException e) {
+        
+        Map<String, String> errMsg = makeErrorResponse(e.getBindingResult());
+        
+        return responseService.getFailResult(-1,
+                getMessage("argumentException") + " :: [" + errMsg.get("errorField") + "] :: " + errMsg.get("description"));
+    }
     
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -143,5 +160,52 @@ public class ExceptionAdvice {
         map.put("errMsg", errMsg);
         
         return map;
+    }
+    
+    private Map<String, String> makeErrorResponse(BindingResult bindingResult) {
+        String description = "";
+        String defaultMsg      = "";
+        String errorField      = "";
+        
+        Map<String, String> errMap = new HashMap<>();
+        
+        // 에러가 있다면
+        if (bindingResult.hasErrors()) {
+            // DTO에 설정한 meaasge값을 가져온다
+            defaultMsg = bindingResult.getFieldError().getDefaultMessage();
+            
+            log.debug("defaultMsg :: {}", defaultMsg);
+            
+            errorField = bindingResult.getFieldError().getField();
+            
+            log.debug("errorField :: {}", errorField);
+            
+            errMap.put("errorField", errorField);
+            
+            
+            // DTO에 유효성체크를 걸어놓은 어노테이션명을 가져온다.
+            String bindResultCode = bindingResult.getFieldError().getCode();
+            
+            log.debug("bindResultCode :: {}", bindResultCode);
+            
+            switch (bindResultCode) {
+                case "NotNull":
+                    description = getMessage("valid.notnull");
+                    break;
+                case "Min":
+                    description = getMessage("valid.min");
+                    break;
+                case "Max":
+                    description = getMessage("valid.max");
+                    break;
+                case "Size":
+                    description = defaultMsg;
+                    break;
+            }
+        }
+        
+        errMap.put("description", description);
+        
+        return errMap;
     }
 }
