@@ -2,10 +2,15 @@ package octopus.backend.v1.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import octopus.entity.BaseDto;
 import octopus.entity.TCodeM;
 
 /**
@@ -20,9 +25,17 @@ import octopus.entity.TCodeM;
 @Builder
 @AllArgsConstructor // 모든인자를 가지는객체 생성
 @NoArgsConstructor // 인자 없이 객체 생성
-public class TCodeMDto {
+@EqualsAndHashCode(callSuper = true) // true의 경우 부모 클래스 필드 값들도 동일한지 체크하며, false(기본값)일 경우 자신 클래스의 필드 값만 고려한다.
+public class TCodeMDto extends BaseDto {
+	private static final long serialVersionUID = 1L;
+
+	@NotNull
 	private String pCd;
+
+	@NotNull
 	private String pCdNm;
+
+	@Size(min = 1, max = 1)
 	private String useYn;
 
 	private String wdOptNm1;
