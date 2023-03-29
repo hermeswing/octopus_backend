@@ -29,7 +29,7 @@ public class CodeDService {
     @Transactional(readOnly = true)
     public List<TCodeDDto> findSearch(TCodeDDto tCodeDDto) {
         List<TCodeDDto> list = codeDRepository.findBypCd(tCodeDDto.getPCd(), Sort.by(Sort.Direction.ASC, "sortSeq"))
-                .stream().map(data -> TCodeDDto.getDto(data)).collect(Collectors.toList());
+                .stream().map(data -> TCodeDDto.makeDto(data)).collect(Collectors.toList());
         
         log.debug("list :: {}", list);
         
@@ -43,7 +43,7 @@ public class CodeDService {
         //Sort sortAll = s1.and(s2);
         
         List<TCodeDDto> list = codeDRepository.findBypCd(pCd, s1).stream()
-                .map(data -> TCodeDDto.getDto(data)).collect(Collectors.toList());
+                .map(data -> TCodeDDto.makeDto(data)).collect(Collectors.toList());
         
         log.debug("list :: {}", list);
         
@@ -66,7 +66,7 @@ public class CodeDService {
     
     @Transactional(readOnly = true)
     public List<TCodeDDto> findAllCd() {
-        List<TCodeDDto> list = codeDRepository.findAll().stream().map(data -> TCodeDDto.getDto(data))
+        List<TCodeDDto> list = codeDRepository.findAll().stream().map(data -> TCodeDDto.makeDto(data))
                 .collect(Collectors.toList());
         // List<TCodeDDto> list = codeDRepository.findAll().stream().map(data ->
         // modelMapper.map(data, TCodeDDto.class))
@@ -78,15 +78,15 @@ public class CodeDService {
     }
     
     @Transactional
-    public TCodeD save(TCodeDDto tCodeMDto) {
+    public TCodeD save(TCodeDDto tCodeDDto) {
         
-        log.debug("tCodeMDto :: {}", tCodeMDto);
+        log.debug("tCodeDDto :: {}", tCodeDDto);
         
-        TCodeD tCodeM = tCodeMDto.toEntity();
+        TCodeD tCodeD = tCodeDDto.toEntity();
         
-        log.debug("tCodeM :: {}", tCodeM);
+        log.debug("tCodeD :: {}", tCodeD);
         
-        return codeDRepository.save(tCodeM);
+        return codeDRepository.save(tCodeD);
     }
     
     @Transactional

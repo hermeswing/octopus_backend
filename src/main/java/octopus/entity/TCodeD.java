@@ -22,8 +22,9 @@ import octopus.backend.v1.dto.TCodeDDto;
 @Entity // jpa entity임을 알립니다.
 @Getter // getter를 자동으로 생성합니다.
 // @Setter // 객체가 무분별하게 변경될 가능성 있음
-@ToString(exclude = { "crtId", "crtDt", "mdfId", "mdfDt" }) // 연관관계 매핑된 엔티티 필드는 제거. 연관 관계 필드는 toString()에서 사용하지 않는 것이
-                                                            // 좋습니다.
+//@ToString(exclude = { "crtId", "crtDt", "mdfId", "mdfDt" }) // 연관관계 매핑된 엔티티 필드는 제거. 연관 관계 필드는 toString()에서 사용하지 않는 것이
+//                                                            // 좋습니다.
+@ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 인자없는 생성자를 자동으로 생성합니다. 기본 생성자의 접근 제어자가 불명확함. (access =
                                                    // AccessLevel.PROTECTED) 추가
 // @AllArgsConstructor // 객체 내부의 인스턴스멤버들을 모두 가지고 있는 생성자를 생성 (매우 위험)
@@ -42,11 +43,13 @@ public class TCodeD extends BaseEntity {
     @Builder
     public TCodeD(String pCd, String cd, String cdNm, String useYn, Integer sortSeq, String rmk, String wdOpt1,
             String wdOpt2, String wdOpt3, String wdOpt4, String wdOpt5, Integer numOpt1, Integer numOpt2,
-            Integer numOpt3, Integer numOpt4, Integer numOpt5) {
+            Integer numOpt3, Integer numOpt4, Integer numOpt5, String crtId, String mdfId) {
         Assert.hasText(pCd, "pCd must not be empty");
         Assert.hasText(cd, "cd must not be empty");
         Assert.hasText(cdNm, "cdNm must not be empty");
         Assert.hasText(useYn, "useYn must not be empty");
+        Assert.hasText(crtId, "crtId must not be empty");
+        Assert.hasText(mdfId, "mdfId must not be empty");
         
         this.pCd     = pCd;
         this.cd      = cd;
@@ -64,6 +67,8 @@ public class TCodeD extends BaseEntity {
         this.numOpt3 = numOpt3;
         this.numOpt4 = numOpt4;
         this.numOpt5 = numOpt5;
+        this.crtId   = crtId;
+        this.mdfId   = mdfId;
     }
     
     /**

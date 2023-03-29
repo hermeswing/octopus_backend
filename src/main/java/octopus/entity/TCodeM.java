@@ -21,8 +21,9 @@ import octopus.backend.v1.dto.TCodeMDto;
 @Entity // jpa entity임을 알립니다.
 @Getter // getter를 자동으로 생성합니다.
 // @Setter // 객체가 무분별하게 변경될 가능성 있음
-@Builder
-@ToString(exclude = { "crtId", "crtDt", "mdfId", "mdfDt" }) // 연관관계 매핑된 엔티티 필드는 제거. 연관 관계 필드는 toString()에서 사용하지 않는 것이 좋습니다.
+// @Builder
+// @ToString(exclude = { "crtId", "crtDt", "mdfId", "mdfDt" }) // 연관관계 매핑된 엔티티 필드는 제거. 연관 관계 필드는 toString()에서 사용하지 않는 것이 좋습니다.
+@ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 인자없는 생성자를 자동으로 생성합니다. 기본 생성자의 접근 제어자가 불명확함. (access = AccessLevel.PROTECTED) 추가
 // @AllArgsConstructor // 객체 내부의 인스턴스멤버들을 모두 가지고 있는 생성자를 생성 (매우 위험)
 @Table(name = "T_CODE_M")
@@ -37,12 +38,16 @@ public class TCodeM extends BaseEntity {
     }
     
     @Builder
-    public TCodeM(String pCd, String pCdNm, String useYn, String rmk, String wdOptNm1, String wdOptNm2, String wdOptNm3,
-            String wdOptNm4, String wdOptNm5, String numOptNm1, String numOptNm2, String numOptNm3, String numOptNm4,
-            String numOptNm5) {
+    public TCodeM(String pCd, String pCdNm, String useYn, String rmk, String wdOptNm1,
+            String wdOptNm2, String wdOptNm3,
+            String wdOptNm4, String wdOptNm5, String numOptNm1, String numOptNm2, String numOptNm3,
+            String numOptNm4,
+            String numOptNm5, String crtId, String mdfId) {
         Assert.hasText(pCd, "pCd must not be empty");
         Assert.hasText(pCdNm, "pCdNm must not be empty");
         Assert.hasText(useYn, "useYn must not be empty");
+        Assert.hasText(crtId, "crtId must not be empty");
+        Assert.hasText(mdfId, "mdfId must not be empty");
         
         this.pCd       = pCd;
         this.pCdNm     = pCdNm;
@@ -58,6 +63,8 @@ public class TCodeM extends BaseEntity {
         this.numOptNm3 = numOptNm3;
         this.numOptNm4 = numOptNm4;
         this.numOptNm5 = numOptNm5;
+        this.crtId     = crtId;
+        this.mdfId     = mdfId;
     }
     
     /**

@@ -41,7 +41,7 @@ public class CodeMService {
 
 	@Transactional(readOnly = true)
 	public List<TCodeMDto> findAllCd() {
-		List<TCodeMDto> list = codeMRepository.findAll().stream().map(data -> TCodeMDto.getDto(data))
+		List<TCodeMDto> list = codeMRepository.findAll().stream().map(data -> TCodeMDto.makeDto(data))
 				.collect(Collectors.toList());
 		// List<TCodeMDto> list = codeDRepository.findAll().stream().map(data ->
 		// modelMapper.map(data, TCodeMDto.class))

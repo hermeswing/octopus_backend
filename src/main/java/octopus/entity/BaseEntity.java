@@ -16,6 +16,7 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * <pre>
@@ -24,13 +25,14 @@ import lombok.Getter;
  * </pre>
  */
 @Getter
+@ToString
 @MappedSuperclass // BaseEntity를 상속한 Entity들은 아래의 필드들을 컬럼으로 인식한다.
 @EntityListeners(AuditingEntityListener.class) // Audting(자동으로 값 Mapping) 기능 추가
 public abstract class BaseEntity implements Serializable, Persistable<String> {
     private static final long serialVersionUID = 1L;
     
     /* save 시 Select 날리는 것을 방지 */
-    @Transient  // 특정 필드를 컬럼에 매핑하지 않음(매핑 무시), 주로 메모리상에서만 임시로 어떤 값을 보관하고 싶을 때 사용
+    @Transient // 특정 필드를 컬럼에 매핑하지 않음(매핑 무시), 주로 메모리상에서만 임시로 어떤 값을 보관하고 싶을 때 사용
     private boolean isNew = true;
     
     @Override
@@ -51,14 +53,14 @@ public abstract class BaseEntity implements Serializable, Persistable<String> {
      */
     // private String crtId;
     @Column(updatable = false)
-    protected String crtId = "admin";
+    protected String crtId;
     
     /**
      * 생성일자 : Entity가 생성되어 저장될 때 시간이 자동 저장된다.
      */
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime crtDt;
+    protected LocalDateTime crtDt;
     
     /**
      * 수정자
@@ -66,12 +68,12 @@ public abstract class BaseEntity implements Serializable, Persistable<String> {
      * @LastModifiedBy // implements AuditorAware<Long>를 구현한 Class를 생성해야 한다.
      */
     // private String mdfId;
-    protected String mdfId = "admin";
+    protected String mdfId;
     
     /**
      * 수정일자 : Entity가 생성되어 저장될 때 시간이 자동 저장된다.
      */
     @LastModifiedDate
-    private LocalDateTime mdfDt;
+    protected LocalDateTime mdfDt;
     
 }

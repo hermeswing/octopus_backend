@@ -25,7 +25,7 @@ import octopus.entity.TCodeD;
 @Builder
 @AllArgsConstructor // 모든인자를 가지는객체 생성
 @NoArgsConstructor // 인자 없이 객체 생성
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true) // true의 경우 부모 클래스 필드 값들도 동일한지 체크하며, false(기본값)일 경우 자신 클래스의 필드 값만 고려한다.
 public class TCodeDDto extends BaseDto {
 	private static final long serialVersionUID = 1L;
@@ -58,10 +58,7 @@ public class TCodeDDto extends BaseDto {
 
 	private String rmk;
 
-	private String crtId;
-	private String mdfId;
-
-	public static TCodeDDto getDto(TCodeD code) {
+	public static TCodeDDto makeDto(TCodeD code) {
 		return TCodeDDto.builder().pCd(code.getPCd()).cd(code.getCd()).cdNm(code.getCdNm()).sortSeq(code.getSortSeq())
 				.useYn(code.getUseYn()).wdOpt1(code.getWdOpt1()).wdOpt2(code.getWdOpt2()).wdOpt3(code.getWdOpt3())
 				.wdOpt4(code.getWdOpt4()).wdOpt5(code.getWdOpt5()).numOpt1(code.getNumOpt1()).numOpt2(code.getNumOpt2())
@@ -71,7 +68,7 @@ public class TCodeDDto extends BaseDto {
 
 	public TCodeD toEntity() {
 		return TCodeD.builder().pCd(pCd).cd(cd).cdNm(cdNm).useYn(useYn).sortSeq(sortSeq).wdOpt1(wdOpt1).wdOpt2(wdOpt2)
-				.wdOpt3(wdOpt3).wdOpt4(wdOpt4).wdOpt5(wdOpt5).numOpt1(numOpt1).numOpt2(numOpt2).numOpt3(numOpt3)
-				.numOpt4(numOpt4).numOpt5(numOpt5).rmk(rmk).crtId(crtId).build();
+		        .wdOpt3(wdOpt3).wdOpt4(wdOpt4).wdOpt5(wdOpt5).numOpt1(numOpt1).numOpt2(numOpt2).numOpt3(numOpt3)
+		        .numOpt4(numOpt4).numOpt5(numOpt5).rmk(rmk).crtId(getCrtId()).mdfId(getMdfId()).build();
 	}
 }

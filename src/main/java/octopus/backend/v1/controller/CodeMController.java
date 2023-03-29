@@ -15,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import octopus.backend.comm.anotation.LoginUser;
+import octopus.backend.comm.dto.UserSessionDto;
 import octopus.backend.comm.model.ListResult;
 import octopus.backend.comm.model.SingleResult;
 import octopus.backend.comm.service.ResponseService;
@@ -24,19 +26,20 @@ import octopus.entity.CommonResult;
 import octopus.entity.TCodeM;
 
 @Slf4j
-@Api(tags = { "1. Master Code" })
+@Api(tags = { "1-1. Master Code" })
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/master")
 public class CodeMController {
     
     private final MessageSourceAccessor messageSourceAccessor;
-    private final CodeMService           codeMService;
+    private final CodeMService          codeMService;
     private final ResponseService       responseService;
     
     @ApiOperation(value = "대분류 단건 검색", notes = "대분류 코드를 조회합니다.")
     @GetMapping("/code/cd/{pCd}")
-    public SingleResult<TCodeMDto> findCodeByCd(@ApiParam(value = "대분류 코드", required = true) @PathVariable String pCd) {
+    public SingleResult<TCodeMDto> findCodeByCd(
+            @ApiParam(value = "대분류 코드", required = true) @PathVariable String pCd) {
         return responseService.getSingleResult(codeMService.findByCd(pCd));
     }
     
@@ -62,17 +65,24 @@ public class CodeMController {
             @ApiParam(value = "슷지옵션3", required = false) @RequestParam(required = false) String numOptNm3,
             @ApiParam(value = "슷지옵션4", required = false) @RequestParam(required = false) String numOptNm4,
             @ApiParam(value = "슷지옵션5", required = false) @RequestParam(required = false) String numOptNm5,
-            @ApiParam(value = "비고", required = false) @RequestParam(required = false) String rmk) {
+            @ApiParam(value = "비고", required = false) @RequestParam(required = false) String rmk,
+            @LoginUser UserSessionDto userDto) {
         
-        TCodeMDto tCodeMDto = TCodeMDto.builder().pCd(pCd).pCdNm(pCdNm).useYn(useYn).rmk(rmk).wdOptNm1(wdOptNm1)
-                .wdOptNm2(wdOptNm2).wdOptNm3(wdOptNm3).wdOptNm4(wdOptNm4).wdOptNm5(wdOptNm5).numOptNm1(numOptNm1)
-                .numOptNm2(numOptNm2).numOptNm3(numOptNm3).numOptNm4(numOptNm4).numOptNm5(numOptNm5).build();
+        TCodeMDto tCodeMDto = TCodeMDto.builder().pCd(pCd).pCdNm(pCdNm).useYn(useYn).rmk(rmk)
+                .wdOptNm1(wdOptNm1)
+                .wdOptNm2(wdOptNm2).wdOptNm3(wdOptNm3).wdOptNm4(wdOptNm4).wdOptNm5(wdOptNm5)
+                .numOptNm1(numOptNm1)
+                .numOptNm2(numOptNm2).numOptNm3(numOptNm3).numOptNm4(numOptNm4).numOptNm5(numOptNm5)
+                .build();
+        
+        tCodeMDto.setCrtId(userDto.getUserId());
+        tCodeMDto.setMdfId(userDto.getUserId());
         
         log.debug("tCodeMDto :: {}", tCodeMDto);
         
         TCodeM tCodeM = codeMService.save(tCodeMDto);
         
-        return responseService.getSingleResult(TCodeMDto.getDto(tCodeM));
+        return responseService.getSingleResult(TCodeMDto.makeDto(tCodeM));
     }
     
     @ApiOperation(value = "코드 수정", notes = "코드 정보를 수정합니다.")
@@ -93,9 +103,12 @@ public class CodeMController {
             @ApiParam(value = "슷지옵션5", required = false) @RequestParam(required = false) String numOptNm5,
             @ApiParam(value = "비고", required = false) @RequestParam(required = false) String rmk) {
         
-        TCodeMDto tCodeMDto = TCodeMDto.builder().pCd(pCd).pCdNm(pCdNm).useYn(useYn).rmk(rmk).wdOptNm1(wdOptNm1)
-                .wdOptNm2(wdOptNm2).wdOptNm3(wdOptNm3).wdOptNm4(wdOptNm4).wdOptNm5(wdOptNm5).numOptNm1(numOptNm1)
-                .numOptNm2(numOptNm2).numOptNm3(numOptNm3).numOptNm4(numOptNm4).numOptNm5(numOptNm5).build();
+        TCodeMDto tCodeMDto = TCodeMDto.builder().pCd(pCd).pCdNm(pCdNm).useYn(useYn).rmk(rmk)
+                .wdOptNm1(wdOptNm1)
+                .wdOptNm2(wdOptNm2).wdOptNm3(wdOptNm3).wdOptNm4(wdOptNm4).wdOptNm5(wdOptNm5)
+                .numOptNm1(numOptNm1)
+                .numOptNm2(numOptNm2).numOptNm3(numOptNm3).numOptNm4(numOptNm4).numOptNm5(numOptNm5)
+                .build();
         
         log.debug("tCodeMDto :: {}", tCodeMDto);
         
@@ -106,7 +119,8 @@ public class CodeMController {
     
     @ApiOperation(value = "코드 삭제", notes = "코드을 삭제합니다.")
     @DeleteMapping("/code/{pCd}")
-    public CommonResult delete(@ApiParam(value = "대분류 코드", required = true) @RequestParam(required = true) String pCd) {
+    public CommonResult delete(
+            @ApiParam(value = "대분류 코드", required = true) @RequestParam(required = true) String pCd) {
         
         TCodeMDto tCodeMDto = TCodeMDto.builder().pCd(pCd).useYn("N").build();
         

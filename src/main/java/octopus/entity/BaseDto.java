@@ -1,7 +1,6 @@
 package octopus.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -16,7 +15,7 @@ public class BaseDto implements Serializable {
 	/**
 	 * 생성자
 	 */
-	private String crtId;
+	protected String crtId;
 
 	/**
 	 * 생성일자
@@ -26,7 +25,7 @@ public class BaseDto implements Serializable {
 	/**
 	 * 수정자
 	 */
-	private String mdfId;
+	protected String mdfId;
 
 	/**
 	 * 수정일
