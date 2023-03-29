@@ -1,4 +1,4 @@
-package octopus.model;
+package octopus.backend.comm.model;
 
 import java.util.List;
 

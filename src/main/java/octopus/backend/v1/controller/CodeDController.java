@@ -24,14 +24,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import octopus.backend.comm.anotation.LoginUser;
+import octopus.backend.comm.dto.UserSessionDto;
+import octopus.backend.comm.model.ListResult;
+import octopus.backend.comm.model.SearchCriteria;
+import octopus.backend.comm.model.SingleResult;
 import octopus.backend.comm.service.ResponseService;
 import octopus.backend.v1.dto.TCodeDDto;
 import octopus.backend.v1.service.CodeDService;
 import octopus.entity.CommonResult;
 import octopus.entity.TCodeD;
-import octopus.model.ListResult;
-import octopus.model.SearchCriteria;
-import octopus.model.SingleResult;
 
 @Slf4j
 @Api(tags = { "1. Detail Code" })
@@ -117,21 +119,14 @@ public class CodeDController {
 	}
 
 	@ApiOperation(value = "공통코드 저장", notes = "공통코드 정보를 저장합니다.")
-	@PostMapping("/codeSave")
-	public SingleResult<TCodeDDto> codeSave(@RequestBody @Valid TCodeDDto tCodeDDto, Errors errors) {
+	@PostMapping("/saveAll")
+	public SingleResult<TCodeDDto> saveAll(final @RequestBody @Valid TCodeDDto tCodeDDto, Errors errors,
+			@LoginUser UserSessionDto userDto) {
 
 		log.debug("tCodeMDto :: {}", tCodeDDto);
 
-		TCodeD tCodeD = codeDService.save(tCodeDDto);
-
-		return responseService.getSingleResult(TCodeDDto.getDto(tCodeD));
-	}
-
-	@ApiOperation(value = "공통코드 저장", notes = "공통코드 정보를 저장합니다.")
-	@PostMapping("/codeAll")
-	public SingleResult<TCodeDDto> saveAll(final @Valid @RequestBody TCodeDDto tCodeDDto) {
-
-		log.debug("tCodeMDto :: {}", tCodeDDto);
+		tCodeDDto.setCrtId(userDto.getUserId());
+		tCodeDDto.setMdfId(userDto.getUserId());
 
 		TCodeD tCodeD = codeDService.save(tCodeDDto);
 

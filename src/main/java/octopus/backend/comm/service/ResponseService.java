@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 
+import octopus.backend.comm.model.ListResult;
+import octopus.backend.comm.model.SingleResult;
 import octopus.entity.CommonResult;
-import octopus.model.ListResult;
-import octopus.model.SingleResult;
 
 @Service
 public class ResponseService {

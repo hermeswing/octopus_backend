@@ -15,13 +15,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import octopus.backend.comm.model.ListResult;
+import octopus.backend.comm.model.SingleResult;
 import octopus.backend.comm.service.ResponseService;
 import octopus.backend.v1.dto.TCodeMDto;
 import octopus.backend.v1.service.CodeMService;
 import octopus.entity.CommonResult;
 import octopus.entity.TCodeM;
-import octopus.model.ListResult;
-import octopus.model.SingleResult;
 
 @Slf4j
 @Api(tags = { "1. Master Code" })
