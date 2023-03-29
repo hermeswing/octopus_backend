@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.advice.exception.CUserNotFoundException;
 import octopus.advice.exception.CustomException;
-import octopus.backend.service.ResponseService;
+import octopus.backend.comm.service.ResponseService;
 import octopus.entity.CommonResult;
 
 @RequiredArgsConstructor

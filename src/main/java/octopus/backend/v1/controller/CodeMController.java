@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import octopus.backend.service.ResponseService;
+import octopus.backend.comm.service.ResponseService;
 import octopus.backend.v1.dto.TCodeMDto;
 import octopus.backend.v1.service.CodeMService;
 import octopus.entity.CommonResult;
