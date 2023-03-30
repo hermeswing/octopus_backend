@@ -41,7 +41,7 @@ public class TCodeDDto extends BaseDto {
 	@Size(min = 1, max = 1)
 	private String useYn;
 
-	@Digits(integer = 4, fraction = 0)
+	@Digits(integer = 4, fraction = 0) // 정수 4자리, 소수점 0자리
 	private Integer sortSeq;
 
 	private String wdOpt1;

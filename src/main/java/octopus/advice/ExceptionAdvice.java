@@ -51,6 +51,8 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CommonResult methodArgumentNotValidException(MethodArgumentNotValidException e) {
         
+        log.debug("e.getBindingResult() :: {}", e.getBindingResult());
+        
         Map<String, String> errMsg = makeErrorResponse(e.getBindingResult());
         
         return responseService.getFailResult(-1,
@@ -60,12 +62,18 @@ public class ExceptionAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult argumentException(HttpServletRequest request, IllegalArgumentException e) {
-        return responseService.getFailResult(-1, getMessage("argumentException"));
+        
+        log.debug("[ExceptionAdvice.argumentException] :: {}", e.toString());
+        
+        return responseService.getFailResult(-1, getMessage("argumentException")); 
     }
     
-    @ExceptionHandler(IllegalStateException.class)
+    @ExceptionHandler(IllegalStateException.class)  
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult illegalStateException(HttpServletRequest request, IllegalStateException e) {
+        
+        log.debug("[ExceptionAdvice.illegalStateException] :: {}", e.toString());
+        
         return responseService.getFailResult(-1, getMessage("argumentException"));
     }
     
@@ -136,7 +144,7 @@ public class ExceptionAdvice {
             // 고유성 제한 위반과 같은 데이터 삽입 또는 업데이트시 무결성 위반
             // "등록된 데이터가 컬럼의 속성과 다릅니다. (길이, 속성, 필수입력항목 등..)";
             errCode = "-1";
-            errMsg  = getMessage("duplicateKeyException"); // "중복된 데이터가 존재합니다.";
+            errMsg  = getMessage("dataIntegrityViolationException"); // "등록된 데이터가 컬럼의 속성과 다릅니다. (길이, 속성, 필수입력항목 등..)";
         } else if (ex instanceof DataAccessResourceFailureException) {
             // 데이터 액세스 리소스가 완전히 실패했습니다 (예 : 데이터베이스에 연결할 수 없음)
             errCode = "-1";

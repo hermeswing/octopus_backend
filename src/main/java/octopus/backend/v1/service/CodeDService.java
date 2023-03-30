@@ -86,7 +86,14 @@ public class CodeDService {
         
         log.debug("tCodeD :: {}", tCodeD);
         
-        return codeDRepository.save(tCodeD);
+        TCodeD retEntity = null;
+        try {
+            retEntity = codeDRepository.save(tCodeD);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return retEntity;
     }
     
     @Transactional

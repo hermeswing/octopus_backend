@@ -47,7 +47,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
         // TODO Session 객체가 없음. Redis 에서 사용자의 정보를 가져와야 할 지도..
         // TODO 사용자 정보를 Return 한다.
         // UserSessionDto userDto = (UserSessionDto) session.getAttribute("user");
-        UserSessionDto userDto = UserSessionDto.builder().userId("admin").userNm("admin").build();
+        UserSessionDto userDto = UserSessionDto.builder().userId("admin").userNm("어드민").build();
         
         log.debug("userDto :: {}", userDto);
         
