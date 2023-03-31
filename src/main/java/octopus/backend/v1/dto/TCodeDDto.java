@@ -5,8 +5,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +30,7 @@ import octopus.entity.TCodeD;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true) // true의 경우 부모 클래스 필드 값들도 동일한지 체크하며, false(기본값)일 경우 자신 클래스의 필드 값만 고려한다.
 // @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class) // Deprecated
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+// @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TCodeDDto extends BaseDto {
     private static final long serialVersionUID = 1L;
     
