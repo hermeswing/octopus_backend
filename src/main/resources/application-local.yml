@@ -6,6 +6,10 @@ server:
 # Spring Message 처리
 spring:
   config.activate.on-profile: local
+  devtools:
+    livereload:
+      enabled: true
+
   jpa:
     open-in-view: false
     #database-platform: org.hibernate.dialect.PostgreSQLDialect
