@@ -1,4 +1,4 @@
-package octopus.backend.comm.anotation;
+package octopus.comm.anotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

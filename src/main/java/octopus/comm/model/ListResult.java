@@ -1,4 +1,4 @@
-package octopus.backend.comm.model;
+package octopus.comm.model;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import octopus.entity.CommonResult;
 @Getter
 @Setter
 public class ListResult<T> extends CommonResult {
-    private List<T> list;
-    
-    // private CollectionModel<T> collection;
+	private List<T> list;
+
+	// private CollectionModel<T> collection;
 }

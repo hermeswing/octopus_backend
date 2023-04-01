@@ -1,4 +1,4 @@
-package octopus.backend.comm.service;
+package octopus.comm.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 
-import octopus.backend.comm.model.ListResult;
-import octopus.backend.comm.model.SingleResult;
+import octopus.comm.model.ListResult;
+import octopus.comm.model.SingleResult;
 import octopus.entity.CommonResult;
 
 @Service
@@ -21,7 +21,7 @@ public class ResponseService {
 		SingleResult<T> result = new SingleResult<>();
 		result.setData(data);
 		result.setCode(0);
-		result.setMsg(messageSourceAccessor.getMessage("msg.ok"));  // 정상처리되었습니다.
+		result.setMsg(messageSourceAccessor.getMessage("msg.ok")); // 정상처리되었습니다.
 		return result;
 	}
 
@@ -30,7 +30,7 @@ public class ResponseService {
 		ListResult<T> result = new ListResult<>();
 		result.setList(list);
 		result.setCode(0);
-		result.setMsg(messageSourceAccessor.getMessage("msg.ok"));  // 정상처리되었습니다.
+		result.setMsg(messageSourceAccessor.getMessage("msg.ok")); // 정상처리되었습니다.
 		return result;
 	}
 
@@ -46,7 +46,7 @@ public class ResponseService {
 	public CommonResult getSuccessResult() {
 		CommonResult result = new CommonResult();
 		result.setCode(0);
-		result.setMsg(messageSourceAccessor.getMessage("msg.ok"));  // 정상처리되었습니다.
+		result.setMsg(messageSourceAccessor.getMessage("msg.ok")); // 정상처리되었습니다.
 		return result;
 	}
 

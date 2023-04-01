@@ -1,4 +1,4 @@
-package octopus.backend.comm.dto;
+package octopus.comm.dto;
 
 import java.io.Serializable;
 
