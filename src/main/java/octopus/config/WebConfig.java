@@ -7,7 +7,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
-import octopus.comm.resolver.LoginUserArgumentResolver;
+import octopus.base.resolver.LoginUserArgumentResolver;
 
 @RequiredArgsConstructor
 @Configuration

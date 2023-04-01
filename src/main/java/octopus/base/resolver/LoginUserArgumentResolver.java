@@ -1,4 +1,4 @@
-package octopus.comm.resolver;
+package octopus.base.resolver;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,8 +11,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import octopus.comm.anotation.LoginUser;
-import octopus.comm.dto.UserSessionDto;
+import octopus.base.anotation.LoginUser;
+import octopus.base.dto.UserSessionDto;
 
 /**
  * <pre>

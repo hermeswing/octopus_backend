@@ -1,4 +1,4 @@
-package octopus.comm.model;
+package octopus.base.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

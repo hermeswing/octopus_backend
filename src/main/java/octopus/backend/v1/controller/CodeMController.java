@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.backend.v1.dto.TCodeMDto;
 import octopus.backend.v1.service.CodeMService;
-import octopus.comm.anotation.LoginUser;
-import octopus.comm.dto.UserSessionDto;
-import octopus.comm.model.ListResult;
-import octopus.comm.model.SingleResult;
-import octopus.comm.service.ResponseService;
+import octopus.base.anotation.LoginUser;
+import octopus.base.dto.UserSessionDto;
+import octopus.base.model.ListResult;
+import octopus.base.model.SingleResult;
+import octopus.base.service.ResponseService;
 import octopus.entity.CommonResult;
 import octopus.entity.TCodeM;
 

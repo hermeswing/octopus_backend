@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.advice.exception.CUserNotFoundException;
-import octopus.comm.service.ResponseService;
+import octopus.base.service.ResponseService;
 import octopus.entity.CommonResult;
 
 @RequiredArgsConstructor

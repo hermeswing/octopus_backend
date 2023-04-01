@@ -1,4 +1,4 @@
-package octopus.comm.service;
+package octopus.base.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 
-import octopus.comm.model.ListResult;
-import octopus.comm.model.SingleResult;
+import octopus.base.model.ListResult;
+import octopus.base.model.SingleResult;
 import octopus.entity.CommonResult;
 
 @Service

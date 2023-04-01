@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.Errors;
 
-import octopus.comm.dto.UserSessionDto;
+import octopus.base.dto.UserSessionDto;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -18,7 +18,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 	@Bean
 	public Docket swaggerApi() {
-		return new Docket(DocumentationType.SWAGGER_2).ignoredParameterTypes(Errors.class, UserSessionDto.class) // 제외할 파라미터
+		return new Docket(DocumentationType.SWAGGER_2).ignoredParameterTypes(Errors.class, UserSessionDto.class) // 제외할
+																													// 파라미터
 				.apiInfo(swaggerInfo()).select().apis(RequestHandlerSelectors.basePackage("octopus.backend"))
 				.paths(PathSelectors.any()).build().useDefaultResponseMessages(false); // 기본으로 세팅되는 200,401,403,404 메시지를
 																						// 표시 하지 않음
