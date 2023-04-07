@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import octopus.base.resolver.LoginUserArgumentResolver;
 
 @RequiredArgsConstructor
-@Configuration
+@Configuration  // @Configuration와 @EnableWebMvc를 같이 쓰면 안된다
 public class WebConfig implements WebMvcConfigurer {
 
 	private final LoginUserArgumentResolver loginUserArgumentResolver;
